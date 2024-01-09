@@ -1,0 +1,51 @@
+//using T.C  = O(n)  and   S.P  = O(1) 
+class Solution {
+public:
+    ListNode* deleteMiddle(ListNode* head) {
+        if(head == NULL || head -> next == NULL) {
+            return NULL;
+        }
+        ListNode* prevSlow = NULL;
+        ListNode* slow     = head;
+        ListNode* fast     = head;
+
+        while(fast != NULL && fast -> next != NULL) {
+            prevSlow = slow;
+            slow     = slow -> next;
+            fast     = fast -> next -> next;
+        }
+        prevSlow -> next = slow -> next;
+        delete(slow);
+        
+        return head;
+    }
+};
+
+//OR
+class Solution {
+public:
+    ListNode* deleteMiddle(ListNode* head) {
+        
+        if(head -> next == NULL)
+            return NULL;
+        
+        // use slow and fast pointer, slow will move by 1 step and fast will move by 2 steps
+        
+        ListNode* slow = head;
+        
+        ListNode* fast = head -> next -> next;
+        
+        while(fast && fast -> next)
+        {
+            slow = slow -> next;
+            
+            fast = fast -> next -> next;
+        }
+        
+        // update slow pointer
+        
+        slow -> next = slow -> next -> next;
+        
+        return head;
+    }
+};
